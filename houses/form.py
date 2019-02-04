@@ -22,6 +22,11 @@ class HouseRegisterForm(forms.ModelForm):
         'outside',
         ]
 
+    def is_valid(self):
+        super().is_valid()
+        #here we should add some checks
+        return True
+
 class HouseEditForm(forms.ModelForm):
     class Meta:
         model = House

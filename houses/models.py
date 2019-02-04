@@ -21,3 +21,4 @@ class House(models.Model):
     garage = ImageField(null=True)
     outside = ImageField(null=True)
     description = CharField(max_length=10000, default='')
+    number_of_reservs = IntegerField(default=0)
