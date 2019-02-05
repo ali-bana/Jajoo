@@ -12,7 +12,7 @@ def house_create_view(request):
     print(request.method)
     if request.method == 'POST':
         print('its post')
-        form = HouseRegisterForm(request.POST)
+        form = HouseRegisterForm(request.POST, request.FILES or None)
         print(form.is_valid())
         print(form.cleaned_data)
         if form.is_valid():
@@ -32,21 +32,86 @@ def house_edit_view(request, id):
         instance = House.objects.get(id=id)
     except:
         return redirect('../../../404')
-    form = HouseEditForm(request.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
+    if request.method == 'POST':
+        form = HouseEditForm(request.POST or None, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+            return render(request, 'homeEdit.html', {'form': form})
         return redirect('../../../')
+    form = HouseEditForm(instance=instance)
     return render(request, 'homeEdit.html', {'form': form})
 
+
 def house_detail_view(request, id):
-    house = House.objects.get(id = id)
+    house = House.objects.get(id=id)
     if house is None:
         redirect('../../404')
     else:
-        return render(request, 'homeDetails.html', {'house':house})
+        return render(request, 'homeDetails.html', {'house': house})
 
 
 def house_search_view(request):
     houses = House.objects.all()
-    print(houses)
-    return render(request, 'houseSearch.html', {'houses':houses})
+    location = request.GET.get('location')
+    sort = request.GET.get('sort')
+    capacity = request.GET.get('capacity')
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+    rooms = request.GET.get('rooms')
+
+    if sort == 'latest':
+        houses = houses[::-1]
+        pass
+    elif sort == 'reserve':
+        houses = House.objects.order_by('number_of_reservs')
+        pass
+    elif sort == 'expensive':
+        houses = House.objects.order_by('price_per_night')
+        pass
+    elif sort == 'cheap':
+        houses = House.objects.order_by('price_per_night')
+        houses = houses[::-1]
+        pass
+    if (location != '') and (location is not None):
+        t = []
+        for h in houses:
+            if h.neighbourhood == location:
+                t.append(h)
+        houses = t
+
+    if (capacity != '') and (capacity is not None):
+        capacity = int(capacity)
+        t = []
+        for h in houses:
+            if h.max_cap == capacity:
+                t.append(h)
+        houses = t
+
+    if (min_price != '') and (min_price is not None):
+        min_price = int(min_price)
+        t = []
+        for h in houses:
+            if h.price_per_night >= min_price:
+                t.append(h)
+        houses = t
+
+    if (max_price != '') and (max_price is not None):
+        max_price = int(max_price)
+        t = []
+        for h in houses:
+            if h.price_per_night <= max_price:
+                t.append(h)
+        houses = t
+
+    if (rooms != '') and (rooms is not None):
+        rooms = int(rooms)
+        t = []
+        for h in houses:
+            if h.rooms == rooms:
+                t.append(h)
+        houses = t
+
+    return render(request, 'houseSearch.html', {'houses': houses,
+                                                'n': len(houses)})
