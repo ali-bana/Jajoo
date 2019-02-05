@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 .idea/vcs.xml
 
@@ -17,14 +17,12 @@ Jajoo/__pycache__/settings.cpython-36.pyc
 users/migrations/0001_initial.py
 
 houses/migrations/0001_initial.py
-=======
 env/
 env
 .vscode
 .vscode/
 
 *.pyc
->>>>>>> origin/master
 
 users/migrations/__pycache__/0003_auto_20190202_1528.cpython-36.pyc
 
@@ -37,3 +35,5 @@ users/__pycache__/models.cpython-36.pyc
 *.pyc
 
 *.jpg
+media/
+media

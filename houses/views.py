@@ -46,11 +46,20 @@ def house_edit_view(request, id):
 
 
 def house_detail_view(request, id):
-    house = House.objects.get(id=id)
-    if house is None:
-        redirect('../../404')
-    else:
-        return render(request, 'homeDetails.html', {'house': house})
+    # house = House.objects.get(id=id)
+    # if house is None:
+    #     redirect('../../404')
+    # else:
+    return render(request, 'homeDetails.html', {'house': {
+            'name' : folan,
+            'owner' : folani,
+            'rooms' : 5,
+            'beds' : 2,
+            'area' : 45,
+            'max_cap' : 5,
+            'neighbourhood' : 22,
+            'price_per_night' : 65,
+        }})
 
 
 def house_search_view(request):
