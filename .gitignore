@@ -4,3 +4,15 @@
 .idea/workspace.xml
 
 db.sqlite3
+
+media/59952-b600_J8MYwYy.jpg
+
+comments/migrations/0001_initial.py
+
+*.jpg
+
+Jajoo/__pycache__/settings.cpython-36.pyc
+
+users/migrations/0001_initial.py
+
+houses/migrations/0001_initial.py

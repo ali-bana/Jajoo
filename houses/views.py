@@ -117,10 +117,15 @@ def house_search_view(request):
     return render(request, 'houseSearch.html', {'houses': houses,
                                                 'n': len(houses)})
 
+
 def home_page(request):
     latest_houses = House.objects.all()
     latest_houses = latest_houses[::-1]
     populer_houses = House.objects.order_by('number_of_reservs').all()
     popular_hosts = CustomUser.objects.order_by('popularity').all()
-    
-    return render(request, 'index.html', {})
+
+    return render(request, 'index.html', {
+        'latest': latest_houses,
+        'popular_houses': populer_houses,
+        'popular_hosts': popular_hosts
+    })
