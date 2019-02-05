@@ -3,6 +3,7 @@ from django import forms
 from .models import House
 from users.models import CustomUser
 from .form import HouseRegisterForm, HouseEditForm
+from users.models import CustomUser
 
 
 # Create your views here.
@@ -115,3 +116,11 @@ def house_search_view(request):
 
     return render(request, 'houseSearch.html', {'houses': houses,
                                                 'n': len(houses)})
+
+def home_page(request):
+    latest_houses = House.objects.all()
+    latest_houses = latest_houses[::-1]
+    populer_houses = House.objects.order_by('number_of_reservs').all()
+    popular_hosts = CustomUser.objects.order_by('popularity').all()
+    
+    return render(request, 'index.html', {})

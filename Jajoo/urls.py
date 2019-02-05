@@ -20,7 +20,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from houses.views import house_create_view, house_edit_view, house_detail_view, house_search_view
+from houses.views import house_create_view, house_edit_view, house_detail_view, house_search_view, home_page
 from Jajoo import settings
 
 
@@ -28,7 +28,7 @@ def h(request):
     return render(request, 'signup.html', {})
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('', home_page),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
