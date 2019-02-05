@@ -18,7 +18,7 @@ class House(models.Model):
     living_room = ImageField(null=True)
     bed_room = ImageField(null=True)
     kitchen = ImageField(null=True)
-    garage = ImageField(null=True)
     outside = ImageField(null=True)
     description = CharField(max_length=10000, default='')
     number_of_reservs = IntegerField(default=0)
+    off = IntegerField(default=0)

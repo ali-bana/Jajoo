@@ -18,7 +18,6 @@ class HouseRegisterForm(forms.ModelForm):
         'living_room',
         'bed_room',
         'kitchen',
-        'garage',
         'outside',
         ]
 
@@ -43,6 +42,6 @@ class HouseEditForm(forms.ModelForm):
             'living_room',
             'bed_room',
             'kitchen',
-            'garage',
             'outside',
+            'off'
         ]

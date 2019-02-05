@@ -133,6 +133,7 @@ def home_page(request):
     populer_houses = House.objects.order_by('number_of_reservs').all()
     popular_hosts = CustomUser.objects.order_by('popularity').all()
 
+
     return render(request, 'index.html', {
         'latest': latest_houses,
         'popular_houses': populer_houses,

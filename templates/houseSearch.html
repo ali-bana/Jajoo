@@ -194,7 +194,7 @@
                             <img alt="img" src="{% static 'q.jpg' %}">
                         {% endif %}
                     </a>
-                      {% if h.has_off %}
+                      {% if h.off > 0 %}
                           <div class="aa-tag for-rent">
                           %{{ h.off }} Off
                          </div>
