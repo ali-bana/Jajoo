@@ -15,6 +15,7 @@ def house_create_view(request):
             form = HouseRegisterForm(request.POST, request.FILES or None)
             if form.is_valid():
                 obj = House(**form.cleaned_data)
+                obj.owner = user.id
                 obj.save()
                 return redirect('../%s/details' % obj.id)
         return render(request, 'newHouse.html', {'form': HouseRegisterForm(), 'owner' : user.id})
