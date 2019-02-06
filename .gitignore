@@ -6,33 +6,25 @@
 
 db.sqlite3
 
-media/59952-b600_J8MYwYy.jpg
-
 comments/migrations/0001_initial.py
+users/migrations/0001_initial.py
+houses/migrations/0001_initial.py
 
-*.jpg
+users/migrations/__pycache__/0001_initial.cpython-36.pyc
+users/migrations/__pycache__/0003_auto_20190202_1528.cpython-36.pyc
 
 Jajoo/__pycache__/settings.cpython-36.pyc
+comments/__pycache__/admin.cpython-36.pyc
 
-users/migrations/0001_initial.py
 
-houses/migrations/0001_initial.py
 env/
 env
 .vscode
 .vscode/
 
-*.pyc
 
-users/migrations/__pycache__/0003_auto_20190202_1528.cpython-36.pyc
-
-users/migrations/__pycache__/0001_initial.cpython-36.pyc
-
-*.pyc
 
 users/__pycache__/models.cpython-36.pyc
-
-*.pyc
 
 *.jpg
 media/
@@ -40,8 +32,3 @@ media
 
 *.pyc
 
-*.pyc
-
-comments/__pycache__/admin.cpython-36.pyc
-
-*.pyc

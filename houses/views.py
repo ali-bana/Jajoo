@@ -9,22 +9,16 @@ from users.models import CustomUser
 # Create your views here.
 
 def house_create_view(request):
-    user = CustomUser.objects.get(email=request.user)
-    print(request.method)
+    # user = CustomUser.objects.get(email=request.user)
     if request.method == 'POST':
-        print('its post')
         form = HouseRegisterForm(request.POST, request.FILES or None)
-        print(form.is_valid())
-        print(form.cleaned_data)
         if form.is_valid():
             obj = House(**form.cleaned_data)
-            print('\n\nsaving house\n\n')
             obj.save()
-            print(House.objects.all())
-            print('\n\n')
-    if (user is not None):
-        if user.is_host:
-            return render(request, 'newHouse.html', {'form': HouseRegisterForm()})
+            return redirect('../%s/details' % obj.id)
+    # if (user is not None):
+    #     if user.is_host:
+    return render(request, 'newHouse.html', {'form': HouseRegisterForm(), 'owner' : '6164684964'})
     return redirect('../../users/login')
 
 
@@ -46,21 +40,12 @@ def house_edit_view(request, id):
 
 
 def house_detail_view(request, id):
-    # house = House.objects.get(id=id)
-    # if house is None:
-    #     redirect('../../404')
-    # else:
-    return render(request, 'homeDetails.html', {'house': {
-            'name' : folan,
-            'owner' : folani,
-            'rooms' : 5,
-            'beds' : 2,
-            'area' : 45,
-            'max_cap' : 5,
-            'neighbourhood' : 22,
-            'price_per_night' : 65,
-        }})
-
+    house = House.objects.get(id=id)
+    if house is None:
+        redirect('../../404')
+    else:
+        nearby_houses = House.objects.all()
+        return render(request, 'homeDetails.html', {'house': house, 'nearby_houses' : nearby_houses})
 
 def house_search_view(request):
     houses = House.objects.all()

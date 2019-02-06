@@ -7,7 +7,6 @@ class HouseRegisterForm(forms.ModelForm):
         model = House
         fields = [
             'name',
-        'owner',
         'rooms',
         'beds',
         'area',
