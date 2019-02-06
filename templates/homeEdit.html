@@ -149,11 +149,14 @@
 
   <!-- Start Properties  -->
   <section id="aa-properties">
-    <form method="post" enctype='multipart/form-data'>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Edit</button>
-    </form>
+    <div style="text-align: center">
+      <form method="post" enctype='multipart/form-data'>
+          {% csrf_token %}
+          <input type="hidden" name="owner" value="{{ owner }}">
+          {{ form.as_p }}
+          <button type="submit">Edit</button>
+      </form>
+    </div>
   </section>
   <!-- / Properties  -->
 

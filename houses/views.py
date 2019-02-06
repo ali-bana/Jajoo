@@ -9,16 +9,15 @@ from users.models import CustomUser
 # Create your views here.
 
 def house_create_view(request):
-    # user = CustomUser.objects.get(email=request.user)
-    if request.method == 'POST':
-        form = HouseRegisterForm(request.POST, request.FILES or None)
-        if form.is_valid():
-            obj = House(**form.cleaned_data)
-            obj.save()
-            return redirect('../%s/details' % obj.id)
-    # if (user is not None):
-    #     if user.is_host:
-    return render(request, 'newHouse.html', {'form': HouseRegisterForm(), 'owner' : '6164684964'})
+    if request.user.is_authenticated:
+        user = CustomUser.objects.get(email=request.user)
+        if request.method == 'POST':
+            form = HouseRegisterForm(request.POST, request.FILES or None)
+            if form.is_valid():
+                obj = House(**form.cleaned_data)
+                obj.save()
+                return redirect('../%s/details' % obj.id)
+        return render(request, 'newHouse.html', {'form': HouseRegisterForm(), 'owner' : user.id})
     return redirect('../../users/login')
 
 
@@ -31,6 +30,7 @@ def house_edit_view(request, id):
         form = HouseEditForm(request.POST or None, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
+            return redirect('../details')
         else:
             print(form.errors)
             return render(request, 'homeEdit.html', {'form': form})
