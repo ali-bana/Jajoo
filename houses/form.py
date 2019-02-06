@@ -43,3 +43,7 @@ class HouseEditForm(forms.ModelForm):
             'outside',
             'off'
         ]
+
+class HouseAddIntervalForm(forms.Form):
+    begin = forms.DateField(widget = forms.SelectDateWidget())
+    end = forms.DateField(widget = forms.SelectDateWidget())

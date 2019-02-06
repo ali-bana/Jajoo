@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from .models import House
 from users.models import CustomUser
-from .form import HouseRegisterForm, HouseEditForm
+from .form import HouseRegisterForm, HouseEditForm, HouseAddIntervalForm
 from users.models import CustomUser
 
 
@@ -18,6 +18,20 @@ def house_create_view(request):
                 obj.save()
                 return redirect('../%s/details' % obj.id)
         return render(request, 'newHouse.html', {'form': HouseRegisterForm(), 'owner' : user.id})
+    return redirect('../../users/login')
+
+
+def house_add_interval(request, id):
+    if request.user.is_authenticated:
+        user = CustomUser.objects.get(email=request.user)
+        house = House.objects.get(id=id)
+        if request.method == 'POST':
+            form = HouseAddIntervalForm(request.POST, request.FILES or None)
+            if form.is_valid():
+                data = form.cleaned_data
+                house.add_interval(data)
+                return redirect('./details')
+        return render(request, 'newInterval.html', {'form': HouseAddIntervalForm()})
     return redirect('../../users/login')
 
 
@@ -45,7 +59,9 @@ def house_detail_view(request, id):
         redirect('../../404')
     else:
         nearby_houses = House.objects.all()
-        return render(request, 'homeDetails.html', {'house': house, 'nearby_houses' : nearby_houses})
+        import json
+        intervals = json.loads(house.available)['intervals']
+        return render(request, 'homeDetails.html', {'house': house, 'nearby_houses' : nearby_houses, 'intervals':intervals})
 
 def house_search_view(request):
     houses = House.objects.all()

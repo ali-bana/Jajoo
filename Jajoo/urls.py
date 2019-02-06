@@ -20,7 +20,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from houses.views import house_create_view, house_edit_view, house_detail_view, house_search_view, home_page
+from houses.views import house_create_view, house_edit_view, house_detail_view, house_search_view, home_page, house_add_interval
 from Jajoo import settings
 
 
@@ -33,6 +33,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     path('houses/register/', house_create_view),
+    path('houses/<int:id>/add_interval', house_add_interval),
     path('houses/<int:id>/edit/', house_edit_view),
     path('houses/<int:id>/details/', house_detail_view),
     path('404/', TemplateView.as_view(template_name='404.html'), name='404'),
