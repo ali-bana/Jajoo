@@ -15,6 +15,7 @@ def house_create_view(request):
             form = HouseRegisterForm(request.POST, request.FILES or None)
             if form.is_valid():
                 obj = House(**form.cleaned_data)
+                obj.owner = user.id
                 obj.save()
                 return redirect('../%s/details' % obj.id)
         return render(request, 'newHouse.html', {'form': HouseRegisterForm(), 'owner' : user.id})
@@ -60,7 +61,10 @@ def house_detail_view(request, id):
     else:
         nearby_houses = House.objects.all()
         import json
-        intervals = json.loads(house.available)['intervals']
+        try:
+            intervals = json.loads(house.available)['intervals']
+        except:
+            intervals = []
         return render(request, 'homeDetails.html', {'house': house, 'nearby_houses' : nearby_houses, 'intervals':intervals})
 
 def house_search_view(request):
