@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank</title>
+</head>
+<body>
+    <form method="post">
+        {% for i in intervals %}
+        <input type="text" name="{{ i.0 }} {{ i.1 }}" value="{{ i.0 }} {{ i.1 }}" readonly>
+        {% endfor %}
+        <input type="radio" name="ok" value="ok" checked> Pay<br>
+        <input type="radio" name="ok" value="cancel"> Cancel<br>
+    </form>
+</body>
+</html>

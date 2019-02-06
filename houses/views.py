@@ -60,7 +60,10 @@ def house_detail_view(request, id):
     else:
         nearby_houses = House.objects.all()
         import json
-        intervals = json.loads(house.available)['intervals']
+        try:
+            intervals = json.loads(house.available)['intervals']
+        except:
+            intervals = []
         return render(request, 'homeDetails.html', {'house': house, 'nearby_houses' : nearby_houses, 'intervals':intervals})
 
 def house_search_view(request):
@@ -140,3 +143,11 @@ def home_page(request):
         'popular_houses': populer_houses,
         'popular_hosts': popular_hosts
     })
+
+def bank(request):
+    if request.method == 'POST':
+        pass
+    else:
+        intervals = request.GET.get('intervals')
+        home_id = request.GET.get('house_id')
+        pass
